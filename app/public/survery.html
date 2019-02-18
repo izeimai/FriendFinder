@@ -46,10 +46,12 @@
                 // Each question should have an unique id
                 var id = i + 1;
                 var questionHeader = "<h3><strong>Question " + id + "</strong></h3>";
-                $('#survey').append(id);
+                var question = "<h4>" + questions[i] + "</h4>";
+                    $('#survey').append(questionHeader + "\n");
+                    $('#survey').append(question + "\n");
             }
-            
-        } // close document.ready
+
+        }); // close document.ready
 
         // // Chosen CSS
         // var config = {
