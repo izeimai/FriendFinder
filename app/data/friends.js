@@ -17,3 +17,6 @@ var users = [
         ]
     }
 ]
+
+// Export the array
+module.exports = users;

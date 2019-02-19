@@ -23,6 +23,22 @@
         <!-- Survey portion that'll load using jQuery-->
         <div class="container" id="survey">
         </div>
+
+        <!-- Subit button-->
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">
+            <i class="fa fa-check-circle"> Submit</i>
+        </button>
+        <hr>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    <a href="/api/friends">API Friends List</a>
+                    |
+                    <a href="https://github.com/izeimai/FriendFinder">GitHub Repository</a>
+                </p>
+            </div>
+        </footer>
     </div>
 
     <script type="text/javascript">
@@ -43,12 +59,15 @@
 
             // Since each question has similar format, use jQuery to load the survey
             for (var i = 0; i < questions.length; i++) {
-                // Each question should have an unique id
+                // Each dropdown should have a unique id
                 var id = i + 1;
+                var qid = "q" + id;
                 var questionHeader = "<h3><strong>Question " + id + "</strong></h3>";
                 var question = "<h4>" + questions[i] + "</h4>";
-                    $('#survey').append(questionHeader + "\n");
-                    $('#survey').append(question + "\n");
+                $('#survey').append(questionHeader + "\n");
+                $('#survey').append(question + "\n");
+                var dropdown = "<select><option value>Select an option</option><option value=1>1 (Strongly Disagree)</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5 (Strongly Agree)</option></select>";
+                $('#survey').append(dropdown + "<br><br>");
             }
 
         }); // close document.ready
@@ -100,19 +119,19 @@
             if (validateForm()) {
                 // Create an object for the user"s data
                 var userData = {
-                    name: $("#name").val(),
-                    photo: $("#photo").val(),
+                    name: $("#name").val().trim(),
+                    photo: $("#photo").val().trim(),
                     scores: [
-                        $("#q1").val(),
-                        $("#q2").val(),
-                        $("#q3").val(),
-                        $("#q4").val(),
-                        $("#q5").val(),
-                        $("#q6").val(),
-                        $("#q7").val(),
-                        $("#q8").val(),
-                        $("#q9").val(),
-                        $("#q10").val()
+                        $("#q1").val().trim(),
+                        $("#q2").val().trim(),
+                        $("#q3").val().trim(),
+                        $("#q4").val().trim(),
+                        $("#q5").val().trim(),
+                        $("#q6").val().trim(),
+                        $("#q7").val().trim(),
+                        $("#q8").val().trim(),
+                        $("#q9").val().trim(),
+                        $("#q10").val().trim()
                     ]
                 };
 
