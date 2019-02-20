@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Friend Finder</title>
-    <!-- Boostrap, jQuery and Glyphicons -->
+    <!-- Boostrap, jQuery and Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <!-- Modal for jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
 </head>
 
 <body>
@@ -41,6 +45,24 @@
         </footer>
     </div>
 
+    <div id="results-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"> x </button>
+                    <h2 class="modal-title"><strong>Best Match</strong></h2>
+                </div>
+                <div class="modal-body">
+                    <h2 id="match-name"></h2>
+                    <img class="img-fluid" id="match-img" alt="Image Not Shown">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
         $(document).ready(function () {
             // Array of 10 questions
@@ -57,7 +79,7 @@
                 "You feel more energetic after spending time with a group of people"
             ]
 
-            // Since each question has similar format, used jQuery to load the survey
+            // Since each question has similar format, used jQuery to load the dropdowns
             for (var i = 0; i < questions.length; i++) {
                 // Each dropdown should have a unique id
                 var id = i + 1;
@@ -66,89 +88,48 @@
                 var question = "<h4>" + questions[i] + "</h4>";
                 $('#survey').append(questionHeader + "\n");
                 $('#survey').append(question + "\n");
-                var dropdown = "<select><option value>Select an option</option><option value=1>1 (Strongly Disagree)</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5 (Strongly Agree)</option></select>";
+                var dropdown = "<select class=\"chosen-select\" id=" + qid + "><option value>Select an option</option><option value=1>1 (Strongly Disagree)</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5 (Strongly Agree)</option></select>";
                 $('#survey').append(dropdown + "<br><br>");
             }
 
         }); // close document.ready
 
-        // // Chosen CSS
-        // var config = {
-        //     ".chosen-select": {},
-        //     ".chosen-select-deselect": {
-        //         allow_single_deselect: true
-        //     },
-        //     ".chosen-select-no-single": {
-        //         disable_search_threshold: 10
-        //     },
-        //     ".chosen-select-no-results": {
-        //         no_results_text: "Oops, nothing found!"
-        //     },
-        //     ".chosen-select-width": {
-        //         width: "95%"
-        //     }
-        // };
-
-        // for (var selector in config) {
-        //     $(selector).chosen(config[selector]);
-        // }
 
         // Form inputs
         $("#submit").on("click", function (event) {
             event.preventDefault();
 
-            // Form validation
-            function validateForm() {
-                var isValid = true;
-                $(".form-control").each(function () {
-                    if ($(this).val() === "") {
-                        isValid = false;
-                    }
-                });
+            // Takes entered information with jQuery and stores in userData
+            var userData = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: [
+                    $("#q1").val().trim(),
+                    $("#q2").val().trim(),
+                    $("#q3").val().trim(),
+                    $("#q4").val().trim(),
+                    $("#q5").val().trim(),
+                    $("#q6").val().trim(),
+                    $("#q7").val().trim(),
+                    $("#q8").val().trim(),
+                    $("#q9").val().trim(),
+                    $("#q10").val().trim()
+                ]
+            };
 
-                $(".chosen-select").each(function () {
+            // AJAX to post the data to the friends API
+            $.post("/api/friends", userData, function (data) {
 
-                    if ($(this).val() === "") {
-                        isValid = false;
-                    }
-                });
-                return isValid;
-            }
+                // Grab the result from the AJAX post and display name and photo of best match
+                $("#match-name").text(data.name);
+                $("#match-img").attr("src", data.photo);
 
-            // If all required fields are filled
-            if (validateForm()) {
-                // Create an object for the user"s data
-                var userData = {
-                    name: $("#name").val().trim(),
-                    photo: $("#photo").val().trim(),
-                    scores: [
-                        $("#q1").val().trim(),
-                        $("#q2").val().trim(),
-                        $("#q3").val().trim(),
-                        $("#q4").val().trim(),
-                        $("#q5").val().trim(),
-                        $("#q6").val().trim(),
-                        $("#q7").val().trim(),
-                        $("#q8").val().trim(),
-                        $("#q9").val().trim(),
-                        $("#q10").val().trim()
-                    ]
-                };
+                // Show the modal with the best match
+                // $("#results-modal").modal('show');
+                console.log(data);
 
-                // AJAX post the data to the friends API
-                $.post("/api/friends", userData, function (data) {
+            });
 
-                    // Grab the result from the AJAX post so that the best match's name and photo are displayed
-                    $("#match-name").text(data.name);
-                    $("#match-img").attr("src", data.photo);
-
-                    // Show the modal with the best match
-                    $("#results-modal").modal("toggle");
-
-                });
-            } else {
-                alert("Please fill out all fields before submitting!");
-            }
         });
 
     </script>
