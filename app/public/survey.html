@@ -55,9 +55,6 @@
                     <h2 id="match-name"></h2>
                     <img class="img-fluid" id="match-img" alt="Image Not Shown">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close </button>
-                </div>
             </div>
         </div>
     </div>
@@ -123,7 +120,7 @@
                 $("#match-name").text(data.name);
                 $("#match-img").attr("src", data.photo);
 
-                
+
                 // Show the modal with the best match
                 $("#results-modal").modal('show');
                 console.log(data);
