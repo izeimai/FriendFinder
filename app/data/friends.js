@@ -2,7 +2,7 @@
 var users = [
     {
         "name": "Ahmed",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png",
         "scores": [
             5,
             1,
@@ -18,7 +18,7 @@ var users = [
     },
     {
         "name": "Ahmed2",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/024.png",
         "scores": [
             4,
             1,
@@ -29,12 +29,12 @@ var users = [
             2,
             5,
             4,
-            0
+            1
         ]
     },
     {
         "name": "Ahmed3",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/019.png",
         "scores": [
             0,
             1,

@@ -24,21 +24,28 @@ module.exports = function (app) {
         var scoreArray = [];
         for (var i = 0; i < friendData.length; i++) {
             var fd = friendData[i];
-
             if (newFriend.name != fd.name) { // only compare scores if the name is different
-                var scoresum;
+                var scoresum = 0;
                 // Loop through each of the scores
                 for (var j = 0; j < fd.scores.length; j++) {
+                    //takes the absolute difference between the user and the new user score
                     var score = Math.abs(fd.scores[j] - parseInt(newFriend.scores[j]));
+                    // adds those differences together
                     scoresum += score;
-                    console.log(scoresum);
                 }
+                // push that particular pair's compatibility score to the score array
                 scoreArray.push(scoresum);
             }
         }
 
-        // console.log(scoreArray);
-        res.json(friendData);
+        // Function to find the index of the smallest number in an array
+        function indexOfSmallest(a) {
+            return a.indexOf(Math.min.apply(Math, a));
+        }
+
+        var minIndex = indexOfSmallest(scoreArray);
+
+        res.json(friendData[minIndex]);
 
     }); // close POST route
 
