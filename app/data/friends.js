@@ -1,7 +1,7 @@
 // Data (users with their answer scores)
 var users = [
     {
-        "name": "Ahmed",
+        "name": "Person1",
         "photo": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png",
         "scores": [
             5,
@@ -17,7 +17,7 @@ var users = [
         ]
     },
     {
-        "name": "Ahmed2",
+        "name": "Person2",
         "photo": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/024.png",
         "scores": [
             4,
@@ -33,7 +33,7 @@ var users = [
         ]
     },
     {
-        "name": "Ahmed3",
+        "name": "Person3",
         "photo": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/019.png",
         "scores": [
             0,
